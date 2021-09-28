@@ -286,6 +286,7 @@ class run:
         # Get graph
         graph = self.load_pb(pbPath)
 
+        name = os.path.basename(path)
         fullimg = cv2.imread(path, 3)
         floatimg = fullimg.astype(np.float32) - self.mean
         LR_input_ = floatimg.reshape(1, floatimg.shape[0], floatimg.shape[1], 3)
@@ -302,9 +303,8 @@ class run:
 
             bicubic_image = cv2.resize(fullimg, None, fx=self.scale, fy=self.scale, interpolation=cv2.INTER_CUBIC)
 
-            cv2.imshow('Original image', fullimg)
-            cv2.imshow('EDSR upscaled image', HR_image)
-            cv2.imshow('Bicubic upscaled image', bicubic_image)
+            cv2.imwrite("./result/bicubic/" + name, bicubic_image)
+            cv2.imwrite("./result/edsr/" + name, HR_image)
 
             cv2.waitKey(0)
             cv2.destroyAllWindows()
