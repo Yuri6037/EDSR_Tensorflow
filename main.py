@@ -12,6 +12,20 @@ from tensorflow.python.client import device_lib
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' #gets rid of avx/fma warning
 
+class Logger(object):
+    def __init__(self):
+        self.terminal = sys.stdout
+        self.log = open("logfile.log", "a")
+
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
+
+    def flush(self):
+        pass
+
+sys.stdout = Logger()
+
 # TODO:
 # When starting training for x3 and x4, start from pre-trained x2 model.
 
